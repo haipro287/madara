@@ -3,7 +3,7 @@ use std::time::Duration;
 use sp_runtime::traits::Block;
 use starknet_api::hash::StarkHash;
 
-use crate::{ethereum, RetryStrategy};
+use crate::{ethereum, aptos, RetryStrategy};
 
 /// Settlement error type.
 #[derive(thiserror::Error, Debug)]
@@ -23,6 +23,9 @@ pub enum Error<B: Block> {
 
     #[error("Ethereum client error: {0}")]
     EthereumClient(#[from] ethereum::errors::Error),
+
+    #[error("Aptos client error: {0}")]
+    AptosClient(#[from] aptos::errors::Error),
 
     #[error("Failed to find Substrate block hash for Starknet block #{0}")]
     UnknownStarknetBlock(u64),

@@ -39,10 +39,12 @@ use sp_api::offchain::OffchainStorage;
 use sp_api::ConstructRuntimeApi;
 use sp_consensus_aura::sr25519::AuthorityPair as AuraPair;
 use sp_offchain::STORAGE_PREFIX;
+use mc_settlement::aptos::client::{AptosClient, AptosClientConfig};
 
 use crate::genesis_block::MadaraGenesisBlockBuilder;
 use crate::rpc::StarknetDeps;
 use crate::starknet::{db_config_dir, MadaraBackend};
+
 // Our native executor instance.
 pub struct ExecutorDispatch;
 
@@ -98,17 +100,17 @@ pub fn new_partial<BIQ>(
     >,
     ServiceError,
 >
-where
-    RuntimeApi: ConstructRuntimeApi<Block, FullClient>,
-    RuntimeApi: Send + Sync + 'static,
-    BIQ: FnOnce(
-        Arc<FullClient>,
-        &Configuration,
-        &TaskManager,
-        Option<TelemetryHandle>,
-        GrandpaBlockImport<FullBackend, Block, FullClient, FullSelectChain>,
-        Arc<MadaraBackend>,
-    ) -> Result<(BasicImportQueue, BoxBlockImport), ServiceError>,
+    where
+        RuntimeApi: ConstructRuntimeApi<Block, FullClient>,
+        RuntimeApi: Send + Sync + 'static,
+        BIQ: FnOnce(
+            Arc<FullClient>,
+            &Configuration,
+            &TaskManager,
+            Option<TelemetryHandle>,
+            GrandpaBlockImport<FullBackend, Block, FullClient, FullSelectChain>,
+            Arc<MadaraBackend>,
+        ) -> Result<(BasicImportQueue, BoxBlockImport), ServiceError>,
 {
     let telemetry = config
         .telemetry_endpoints
@@ -131,7 +133,7 @@ where
         backend.clone(),
         executor.clone(),
     )
-    .unwrap();
+        .unwrap();
 
     let (client, backend, keystore_container, task_manager) = sc_service::new_full_parts_with_genesis_builder::<
         Block,
@@ -203,9 +205,9 @@ pub fn build_aura_grandpa_import_queue(
     grandpa_block_import: GrandpaBlockImport<FullBackend, Block, FullClient, FullSelectChain>,
     _madara_backend: Arc<MadaraBackend>,
 ) -> Result<(BasicImportQueue, BoxBlockImport), ServiceError>
-where
-    RuntimeApi: ConstructRuntimeApi<Block, FullClient>,
-    RuntimeApi: Send + Sync + 'static,
+    where
+        RuntimeApi: ConstructRuntimeApi<Block, FullClient>,
+        RuntimeApi: Send + Sync + 'static,
 {
     let slot_duration = sc_consensus_aura::slot_duration(&*client)?;
 
@@ -230,7 +232,7 @@ where
             telemetry,
             compatibility_mode: sc_consensus_aura::CompatibilityMode::None,
         })
-        .map_err::<ServiceError, _>(Into::into)?;
+            .map_err::<ServiceError, _>(Into::into)?;
 
     Ok((import_queue, Box::new(grandpa_block_import)))
 }
@@ -244,9 +246,9 @@ pub fn build_manual_seal_import_queue(
     _grandpa_block_import: GrandpaBlockImport<FullBackend, Block, FullClient, FullSelectChain>,
     _madara_backend: Arc<MadaraBackend>,
 ) -> Result<(BasicImportQueue, BoxBlockImport), ServiceError>
-where
-    RuntimeApi: ConstructRuntimeApi<Block, FullClient>,
-    RuntimeApi: Send + Sync + 'static,
+    where
+        RuntimeApi: ConstructRuntimeApi<Block, FullClient>,
+        RuntimeApi: Send + Sync + 'static,
 {
     Ok((
         sc_consensus_manual_seal::import_queue(
@@ -331,8 +333,8 @@ pub fn new_full(
                 enable_http_requests: true,
                 custom_extensions: |_| vec![],
             })
-            .run(client.clone(), task_manager.spawn_handle())
-            .boxed(),
+                .run(client.clone(), task_manager.spawn_handle())
+                .boxed(),
         );
     }
 
@@ -411,7 +413,7 @@ pub fn new_full(
             0,
             prometheus_registry.clone(),
         )
-        .for_each(|()| future::ready(())),
+            .for_each(|()| future::ready(())),
     );
 
     let (commitment_state_diff_tx, commitment_state_diff_rx) = mpsc::channel(5);
@@ -426,7 +428,7 @@ pub fn new_full(
                 madara_backend.clone(),
                 commitment_state_diff_tx,
             )
-            .for_each(|()| future::ready(())),
+                .for_each(|()| future::ready(())),
         );
         task_manager.spawn_essential_handle().spawn(
             "da-worker",
@@ -448,6 +450,12 @@ pub fn new_full(
                     .map_err(|e| ServiceError::Other(e.to_string()))?;
                 Box::new(
                     StarknetContractClient::try_from(ethereum_conf).map_err(|e| ServiceError::Other(e.to_string()))?,
+                )
+            }
+            SettlementLayer::Aptos => {
+                let conf = AptosClientConfig {};
+                Box::new(
+                    AptosClient::try_from(conf).map_err(|e| ServiceError::Other(e.to_string()))?,
                 )
             }
         };
@@ -538,7 +546,7 @@ pub fn new_full(
                         SeqAddrInherentDataProvider::try_from(
                             storage.get(prefix, key).unwrap_or(DEFAULT_SEQUENCER_ADDRESS.to_vec()),
                         )
-                        .unwrap_or_default()
+                            .unwrap_or_default()
                     } else {
                         SeqAddrInherentDataProvider::default()
                     };
@@ -622,9 +630,9 @@ fn run_manual_seal_authorship(
     commands_stream: Option<mpsc::Receiver<sc_consensus_manual_seal::rpc::EngineCommand<Hash>>>,
     telemetry: Option<Telemetry>,
 ) -> Result<(), ServiceError>
-where
-    RuntimeApi: ConstructRuntimeApi<Block, FullClient>,
-    RuntimeApi: Send + Sync + 'static,
+    where
+        RuntimeApi: ConstructRuntimeApi<Block, FullClient>,
+        RuntimeApi: Send + Sync + 'static,
 {
     let proposer_factory = ProposerFactory::new(
         task_manager.spawn_handle(),
@@ -705,7 +713,7 @@ where
 }
 
 type ChainOpsResult =
-    Result<(Arc<FullClient>, Arc<FullBackend>, BasicQueue<Block>, TaskManager, Arc<MadaraBackend>), ServiceError>;
+Result<(Arc<FullClient>, Arc<FullBackend>, BasicQueue<Block>, TaskManager, Arc<MadaraBackend>), ServiceError>;
 
 pub fn new_chain_ops(config: &mut Configuration, cache_more_things: bool) -> ChainOpsResult {
     config.keystore = sc_service::config::KeystoreConfig::InMemory;
