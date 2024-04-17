@@ -4,6 +4,9 @@ use aptos_sdk::rest_client::error::RestError;
 #[derive(thiserror::Error, Debug)]
 #[allow(missing_docs)]
 pub enum Error {
+    #[error("Failed to parse HTTP provider URL: {0}")]
+    UrlParser(#[from] url::ParseError),
+
     #[error("Failed: {0}")]
     Rest(#[from] RestError),
 }

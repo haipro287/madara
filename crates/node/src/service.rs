@@ -39,7 +39,8 @@ use sp_api::offchain::OffchainStorage;
 use sp_api::ConstructRuntimeApi;
 use sp_consensus_aura::sr25519::AuthorityPair as AuraPair;
 use sp_offchain::STORAGE_PREFIX;
-use mc_settlement::aptos::client::{AptosClient, AptosClientConfig};
+use mc_settlement::aptos::client::{AptosClient};
+use mc_settlement::aptos::config::AptosClientConfig;
 
 use crate::genesis_block::MadaraGenesisBlockBuilder;
 use crate::rpc::StarknetDeps;

@@ -2440,15 +2440,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "build-helper"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bdce191bf3fa4995ce948c8c83b4640a1745457a149e73c6db75b4ffe36aad5f"
-dependencies = [
- "semver 0.6.0",
-]
-
-[[package]]
 name = "bulletproofs"
 version = "4.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3055,20 +3046,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "24b1f0365a6c6bb4020cd05806fd0d33c44d38046b8bd7f0e40814b9763cabfc"
 dependencies = [
  "serde",
-]
-
-[[package]]
-name = "cargo_metadata"
-version = "0.15.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eee4243f1f26fc7a42710e7439c149e2b10b05472f88090acce52632f231a73a"
-dependencies = [
- "camino",
- "cargo-platform",
- "semver 1.0.22",
- "serde",
- "serde_json",
- "thiserror",
 ]
 
 [[package]]
@@ -4188,50 +4165,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "cxx"
-version = "1.0.119"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "635179be18797d7e10edb9cd06c859580237750c7351f39ed9b298bfc17544ad"
-dependencies = [
- "cc",
- "cxxbridge-flags",
- "cxxbridge-macro",
- "link-cplusplus",
-]
-
-[[package]]
-name = "cxx-build"
-version = "1.0.119"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9324397d262f63ef77eb795d900c0d682a34a43ac0932bec049ed73055d52f63"
-dependencies = [
- "cc",
- "codespan-reporting",
- "once_cell",
- "proc-macro2",
- "quote",
- "scratch",
- "syn 2.0.53",
-]
-
-[[package]]
-name = "cxxbridge-flags"
-version = "1.0.119"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a87ff7342ffaa54b7c61618e0ce2bbcf827eba6d55b923b83d82551acbbecfe5"
-
-[[package]]
-name = "cxxbridge-macro"
-version = "1.0.119"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "70b5b86cf65fa0626d85720619d80b288013477a91a0389fa8bc716bf4903ad1"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.53",
-]
-
-[[package]]
 name = "da-test"
 version = "0.1.0"
 dependencies = [
@@ -4249,7 +4182,7 @@ dependencies = [
  "serde_json",
  "starknet-ff 0.3.5 (git+https://github.com/xJonathanLEI/starknet-rs.git?rev=64ebc36)",
  "starknet-providers",
- "starknet-rpc-test",
+ "starknet-test-utils",
  "thiserror",
  "tokio",
  "url",
@@ -4858,6 +4791,19 @@ dependencies = [
 
 [[package]]
 name = "env_logger"
+version = "0.9.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a12e6657c4c97ebab115a42dcee77225f7f482cdd841cf7088c657a42e9e00e7"
+dependencies = [
+ "atty",
+ "humantime",
+ "log",
+ "regex",
+ "termcolor",
+]
+
+[[package]]
+name = "env_logger"
 version = "0.10.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4cd405aab171cb85d6735e5c8d9db038c17d3ca007a4d2c25f337935c3d90580"
@@ -4952,6 +4898,19 @@ dependencies = [
  "impl-serde 0.4.0",
  "scale-info",
  "tiny-keccak",
+]
+
+[[package]]
+name = "ethereum-instance"
+version = "0.1.0"
+source = "git+https://github.com/keep-starknet-strange/zaun?branch=main#55511ad38b6bb582137651224fa02c0586596e94"
+dependencies = [
+ "dirs",
+ "ethers",
+ "hex",
+ "serde_json",
+ "thiserror",
+ "utils",
 ]
 
 [[package]]
@@ -5059,7 +5018,7 @@ source = "git+https://github.com/gakonst/ethers-rs?rev=f0e5b194f09c533feb10d1a68
 dependencies = [
  "arrayvec 0.7.4",
  "bytes",
- "cargo_metadata 0.18.1",
+ "cargo_metadata",
  "chrono",
  "const-hex",
  "elliptic-curve",
@@ -5380,20 +5339,8 @@ version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "84f2e425d9790201ba4af4630191feac6dcc98765b118d4d18e91d23c2353866"
 dependencies = [
- "env_logger",
+ "env_logger 0.10.2",
  "log",
-]
-
-[[package]]
-name = "filetime"
-version = "0.2.23"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1ee447700ac8aa0b2f2bd7bc4462ad686ba06baa6727ac149a2d6277f0d240fd"
-dependencies = [
- "cfg-if",
- "libc",
- "redox_syscall 0.4.1",
- "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -8047,15 +7994,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "link-cplusplus"
-version = "1.0.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9d240c6f7e1ba3a28b0249f774e6a9dd0175054b52dfbb61b16eb8505c3785c9"
-dependencies = [
- "cc",
-]
-
-[[package]]
 name = "linked-hash-map"
 version = "0.5.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -8346,7 +8284,6 @@ dependencies = [
  "starknet-core",
  "starknet-ff 0.3.5 (git+https://github.com/xJonathanLEI/starknet-rs.git?rev=64ebc36)",
  "starknet_api",
- "substrate-wasm-builder",
 ]
 
 [[package]]
@@ -8372,6 +8309,7 @@ dependencies = [
  "starknet-providers",
  "starknet-rpc-test",
  "starknet-signers",
+ "starknet-test-utils",
  "starknet_api",
  "tempfile",
  "thiserror",
@@ -8597,6 +8535,7 @@ dependencies = [
  "mp-digest-log",
  "mp-hashers",
  "mp-transactions",
+ "num-traits 0.2.18",
  "pallet-starknet",
  "pallet-starknet-runtime-api",
  "sc-client-api",
@@ -8604,6 +8543,7 @@ dependencies = [
  "sp-blockchain",
  "sp-core 21.0.0 (git+https://github.com/massalabs/polkadot-sdk?branch=release-polkadot-v1.3.0-std)",
  "sp-runtime 24.0.0 (git+https://github.com/massalabs/polkadot-sdk?branch=release-polkadot-v1.3.0-std)",
+ "substrate-prometheus-endpoint",
 ]
 
 [[package]]
@@ -8727,6 +8667,7 @@ dependencies = [
  "thiserror",
  "tokio",
  "url",
+ "utils",
 ]
 
 [[package]]
@@ -10789,6 +10730,8 @@ dependencies = [
  "project-root",
  "reqwest",
  "sc-cli",
+ "sc-client-api",
+ "sc-service",
  "scale-info",
  "serde",
  "serde_json",
@@ -12851,19 +12794,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "sandbox"
-version = "0.1.0"
-source = "git+https://github.com/keep-starknet-strange/zaun#9fe421790165166b714c4ef95c79ad49a959a05a"
-dependencies = [
- "dirs",
- "ethers",
- "hex",
- "serde_json",
- "starknet-core-contract-client",
- "thiserror",
-]
-
-[[package]]
 name = "sc-allocator"
 version = "4.1.0-dev"
 source = "git+https://github.com/massalabs/polkadot-sdk?branch=release-polkadot-v1.3.0-std#a41673f8aa3f24d7ed8fb1f246a97551eca58837"
@@ -14039,12 +13969,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "94143f37725109f92c262ed2cf5e59bce7498c01bcc1502d7b9afe439a4e9f49"
 
 [[package]]
-name = "scratch"
-version = "1.0.7"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a3cf7c11c38cb994f3d40e8a8cde3bbd1f72a435e4c49e85d6553d8312306152"
-
-[[package]]
 name = "scrypt"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -14132,20 +14056,11 @@ dependencies = [
 
 [[package]]
 name = "semver"
-version = "0.6.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7a3186ec9e65071a2095434b1f5bb24838d4e8e130f584c790f6033c79943537"
-dependencies = [
- "semver-parser 0.7.0",
-]
-
-[[package]]
-name = "semver"
 version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f301af10236f6df4160f7c3f04eec6dbc70ace82d23326abad5edee88801c6b6"
 dependencies = [
- "semver-parser 0.10.2",
+ "semver-parser",
 ]
 
 [[package]]
@@ -14156,12 +14071,6 @@ checksum = "92d43fe69e652f3df9bdc2b85b2854a0825b86e4fb76bc44d945137d053639ca"
 dependencies = [
  "serde",
 ]
-
-[[package]]
-name = "semver-parser"
-version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
 
 [[package]]
 name = "semver-parser"
@@ -15854,6 +15763,34 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a8f112729512f8e442d81f95a8a7ddf2b7c6b8a1a6f509a95864142b30cab2d3"
 
 [[package]]
+name = "starkgate-manager-client"
+version = "0.1.0"
+source = "git+https://github.com/keep-starknet-strange/zaun?branch=main#55511ad38b6bb582137651224fa02c0586596e94"
+dependencies = [
+ "async-trait",
+ "ethers",
+ "log",
+ "num-traits 0.2.18",
+ "starknet-proxy-client",
+ "thiserror",
+ "utils",
+]
+
+[[package]]
+name = "starkgate-registry-client"
+version = "0.1.0"
+source = "git+https://github.com/keep-starknet-strange/zaun?branch=main#55511ad38b6bb582137651224fa02c0586596e94"
+dependencies = [
+ "async-trait",
+ "ethers",
+ "log",
+ "num-traits 0.2.18",
+ "starknet-proxy-client",
+ "thiserror",
+ "utils",
+]
+
+[[package]]
 name = "starknet-accounts"
 version = "0.6.1"
 source = "git+https://github.com/xJonathanLEI/starknet-rs.git?rev=64ebc36#64ebc364c0c346e81b715c5b4a3b32ef37b055c8"
@@ -15900,13 +15837,15 @@ dependencies = [
 [[package]]
 name = "starknet-core-contract-client"
 version = "0.1.0"
-source = "git+https://github.com/keep-starknet-strange/zaun#9fe421790165166b714c4ef95c79ad49a959a05a"
+source = "git+https://github.com/keep-starknet-strange/zaun?branch=main#55511ad38b6bb582137651224fa02c0586596e94"
 dependencies = [
  "async-trait",
  "ethers",
  "log",
  "num-traits 0.2.18",
+ "starknet-proxy-client",
  "thiserror",
+ "utils",
 ]
 
 [[package]]
@@ -15990,6 +15929,7 @@ dependencies = [
  "anyhow",
  "assert_matches",
  "async-trait",
+ "ethereum-instance",
  "ethers",
  "flate2",
  "home",
@@ -16000,24 +15940,61 @@ dependencies = [
  "mp-felt",
  "mp-messages",
  "mp-snos-output",
+ "rand 0.8.5",
  "reqwest",
  "rstest",
- "sandbox",
  "serde",
  "serde_json",
+ "starkgate-manager-client",
+ "starkgate-registry-client",
  "starknet-accounts",
  "starknet-contract",
  "starknet-core",
  "starknet-core-contract-client",
  "starknet-crypto 0.6.1 (git+https://github.com/xJonathanLEI/starknet-rs.git?rev=64ebc36)",
+ "starknet-erc20-client",
+ "starknet-eth-bridge-client",
  "starknet-ff 0.3.5 (git+https://github.com/xJonathanLEI/starknet-rs.git?rev=64ebc36)",
  "starknet-providers",
+ "starknet-proxy-client",
  "starknet-signers",
+ "starknet-test-utils",
+ "starknet-token-bridge-client",
  "starknet_api",
  "test-context",
  "thiserror",
  "tokio",
  "url",
+ "utils",
+]
+
+[[package]]
+name = "starknet-erc20-client"
+version = "0.1.0"
+source = "git+https://github.com/keep-starknet-strange/zaun?branch=main#55511ad38b6bb582137651224fa02c0586596e94"
+dependencies = [
+ "async-trait",
+ "ethereum-instance",
+ "ethers",
+ "log",
+ "num-traits 0.2.18",
+ "starknet-proxy-client",
+ "thiserror",
+ "utils",
+]
+
+[[package]]
+name = "starknet-eth-bridge-client"
+version = "0.1.0"
+source = "git+https://github.com/keep-starknet-strange/zaun?branch=main#55511ad38b6bb582137651224fa02c0586596e94"
+dependencies = [
+ "async-trait",
+ "ethers",
+ "log",
+ "num-traits 0.2.18",
+ "starknet-proxy-client",
+ "thiserror",
+ "utils",
 ]
 
 [[package]]
@@ -16064,6 +16041,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "starknet-proxy-client"
+version = "0.1.0"
+source = "git+https://github.com/keep-starknet-strange/zaun?branch=main#55511ad38b6bb582137651224fa02c0586596e94"
+dependencies = [
+ "async-trait",
+ "ethereum-instance",
+ "ethers",
+ "log",
+ "num-traits 0.2.18",
+ "serde_json",
+ "thiserror",
+ "utils",
+]
+
+[[package]]
 name = "starknet-rpc-test"
 version = "0.1.0"
 dependencies = [
@@ -16071,7 +16063,9 @@ dependencies = [
  "assert_matches",
  "async-lock 3.3.0",
  "async-trait",
+ "env_logger 0.9.3",
  "flate2",
+ "log",
  "reqwest",
  "rstest",
  "serde",
@@ -16083,6 +16077,7 @@ dependencies = [
  "starknet-ff 0.3.5 (git+https://github.com/xJonathanLEI/starknet-rs.git?rev=64ebc36)",
  "starknet-providers",
  "starknet-signers",
+ "starknet-test-utils",
  "thiserror",
  "tokio",
  "url",
@@ -16101,6 +16096,46 @@ dependencies = [
  "starknet-core",
  "starknet-crypto 0.6.1 (git+https://github.com/xJonathanLEI/starknet-rs.git?rev=64ebc36)",
  "thiserror",
+]
+
+[[package]]
+name = "starknet-test-utils"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "assert_matches",
+ "async-lock 3.3.0",
+ "async-trait",
+ "flate2",
+ "log",
+ "reqwest",
+ "rstest",
+ "serde",
+ "serde_json",
+ "starknet-accounts",
+ "starknet-contract",
+ "starknet-core",
+ "starknet-crypto 0.6.1 (git+https://github.com/xJonathanLEI/starknet-rs.git?rev=64ebc36)",
+ "starknet-ff 0.3.5 (git+https://github.com/xJonathanLEI/starknet-rs.git?rev=64ebc36)",
+ "starknet-providers",
+ "starknet-signers",
+ "thiserror",
+ "tokio",
+ "url",
+]
+
+[[package]]
+name = "starknet-token-bridge-client"
+version = "0.1.0"
+source = "git+https://github.com/keep-starknet-strange/zaun?branch=main#55511ad38b6bb582137651224fa02c0586596e94"
+dependencies = [
+ "async-trait",
+ "ethers",
+ "log",
+ "num-traits 0.2.18",
+ "starknet-proxy-client",
+ "thiserror",
+ "utils",
 ]
 
 [[package]]
@@ -16315,24 +16350,6 @@ dependencies = [
  "sc-rpc-api",
  "serde",
  "sp-runtime 24.0.0 (git+https://github.com/massalabs/polkadot-sdk?branch=release-polkadot-v1.3.0-std)",
-]
-
-[[package]]
-name = "substrate-wasm-builder"
-version = "5.0.0-dev"
-source = "git+https://github.com/massalabs/polkadot-sdk?branch=release-polkadot-v1.3.0-std#a41673f8aa3f24d7ed8fb1f246a97551eca58837"
-dependencies = [
- "ansi_term",
- "build-helper",
- "cargo_metadata 0.15.4",
- "filetime",
- "parity-wasm",
- "sp-maybe-compressed-blob",
- "strum 0.24.1",
- "tempfile",
- "toml 0.7.8",
- "walkdir",
- "wasm-opt",
 ]
 
 [[package]]
@@ -17787,6 +17804,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "711b9620af191e0cdc7468a8d14e709c3dcdb115b36f838e601583af800a370a"
 
 [[package]]
+name = "utils"
+version = "0.1.0"
+source = "git+https://github.com/keep-starknet-strange/zaun?branch=main#55511ad38b6bb582137651224fa02c0586596e94"
+dependencies = [
+ "async-trait",
+ "ethers",
+ "log",
+ "num-traits 0.2.18",
+ "serde_json",
+ "thiserror",
+]
+
+[[package]]
 name = "uuid"
 version = "0.8.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -17989,46 +18019,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "aa1dafb3e60065305741e83db35c6c2584bb3725b692b5b66148a38d72ace6cd"
 dependencies = [
  "parity-wasm",
-]
-
-[[package]]
-name = "wasm-opt"
-version = "0.116.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fc942673e7684671f0c5708fc18993569d184265fd5223bb51fc8e5b9b6cfd52"
-dependencies = [
- "anyhow",
- "libc",
- "strum 0.24.1",
- "strum_macros 0.24.3",
- "tempfile",
- "thiserror",
- "wasm-opt-cxx-sys",
- "wasm-opt-sys",
-]
-
-[[package]]
-name = "wasm-opt-cxx-sys"
-version = "0.116.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8c57b28207aa724318fcec6575fe74803c23f6f266fce10cbc9f3f116762f12e"
-dependencies = [
- "anyhow",
- "cxx",
- "cxx-build",
- "wasm-opt-sys",
-]
-
-[[package]]
-name = "wasm-opt-sys"
-version = "0.116.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8a1cce564dc768dacbdb718fc29df2dba80bd21cb47d8f77ae7e3d95ceb98cbe"
-dependencies = [
- "anyhow",
- "cc",
- "cxx",
- "cxx-build",
 ]
 
 [[package]]

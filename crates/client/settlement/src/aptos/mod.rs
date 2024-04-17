@@ -1,5 +1,6 @@
 pub mod client;
 pub mod errors;
+pub mod config;
 
 use async_trait::async_trait;
 use sp_runtime::traits::Block;
@@ -17,8 +18,8 @@ impl<B: Block> SettlementProvider<B> for AptosClient {
 
     async fn get_chain_spec(&self) -> crate::errors::Result<StarknetSpec, B> {
         Ok(StarknetSpec {
-            program_hash: convert_u256_to_felt(U256::zero())?,
-            config_hash: convert_u256_to_felt(U256::zero())?,
+            program_hash: convert_u256_to_felt(U256::from_str_radix("0x041fc2a467ef8649580631912517edcab7674173f1dbfa2e9b64fbcd82bc4d79", 16).unwrap())?,
+            config_hash: convert_u256_to_felt(U256::from_str_radix("0x05ac6b99d1ab6d37202e29e2c887ace63cc594b40f900cf2c47398272bef412c", 16).unwrap())?,
         })
     }
 
