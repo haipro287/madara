@@ -320,6 +320,9 @@ starknet-token-bridge-client = { git = "https://github.com/keep-starknet-strange
 zaun-utils = { git = "https://github.com/keep-starknet-strange/zaun", package = "utils", branch = "main" }
 
 
+# Aptos
+aptos-sdk = { git = "https://github.com/haipro287/aptos-core", branch="haipro287/jemalloc" }
+
 # Other third party dependencies
 anyhow = "1.0.80"
 flate2 = "1.0.28"
@@ -371,3 +374,7 @@ async-lock = "3.1.0"
 rustc-hex = { version = "2.0.0" }
 itertools = "0.12.0"
 tempfile = "3.2"
+
+[patch.crates-io]
+merlin = { git = "https://github.com/aptos-labs/merlin" }
+x25519-dalek = { git = "https://github.com/aptos-labs/x25519-dalek", branch = "zeroize_v1" }

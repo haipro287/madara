@@ -1,5 +1,6 @@
 pub mod errors;
 pub mod ethereum;
+pub mod aptos;
 mod sync_state;
 
 use std::marker::PhantomData;
@@ -20,6 +21,7 @@ pub struct SettlementWorker<B, H, SC>(PhantomData<(B, H, SC)>);
 pub enum SettlementLayer {
     /// Use Ethereum core contract
     Ethereum,
+    Aptos,
 }
 
 #[async_trait]
